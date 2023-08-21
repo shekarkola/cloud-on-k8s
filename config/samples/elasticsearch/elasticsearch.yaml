@@ -1,4 +1,3 @@
-cat <<EOF | kubectl apply -f -
 # This sample sets up an Elasticsearch cluster with 3 nodes, used from: https://github.com/elastic/cloud-on-k8s/blob/2.9/config/samples/elasticsearch/elasticsearch.yaml
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
@@ -7,6 +6,7 @@ metadata:
   #annotations:
   #  eck.k8s.elastic.co/downward-node-labels: "topology.kubernetes.io/zone"
   name: elastic-iot
+  namespace: elastic-iot
 spec:
   version: 7.17.12
   nodeSets:
@@ -42,8 +42,8 @@ spec:
           # specify resource limits and requests
           resources:
             limits:
-              memory: 4Gi
-              cpu: 1
+              memory: 2Gi
+              cpu: 100m
           env:
           # uncomment the lines below to make the topology.kubernetes.io/zone annotation available as an environment variable and
           # use it as a cluster routing allocation attribute.
@@ -96,4 +96,3 @@ spec:
   #     certificate:
   #       # provide your own certificate
   #       secretName: my-cert
- EOF
