@@ -1,27 +1,14 @@
-# This sample sets up an Elasticsearch cluster and a Kibana instance preconfigured for that cluster
-apiVersion: elasticsearch.k8s.elastic.co/v1
-kind: Elasticsearch
-metadata:
-  name: elasticsearch-sample
-spec:
-  version: 8.9.0
-  nodeSets:
-  - name: default
-    count: 1
-    config:
-      # This setting could have performance implications for production clusters.
-      # See: https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-virtual-memory.html
-      node.store.allow_mmap: false
----
+cat <<EOF | kubectl apply -f -
+# # Orginial source of the configuration file: https://github.com/elastic/cloud-on-k8s/blob/2.9/config/samples/kibana/kibana_es.yaml
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
   name: kibana-sample
 spec:
-  version: 8.9.0
+  version: 7.17.12
   count: 1
   elasticsearchRef:
-    name: "elasticsearch-sample"
+    name: "elastic-iot"
   #http:
   #  service:
   #    spec:
@@ -37,5 +24,6 @@ spec:
       - name: kibana
         resources:
           limits:
-            memory: 1Gi
+            memory: 2Gi
             cpu: 1
+EOF
