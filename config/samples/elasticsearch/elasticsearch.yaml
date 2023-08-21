@@ -43,7 +43,7 @@ spec:
           resources:
             limits:
               memory: 2Gi
-              cpu: 100m
+              cpu: 200m
           env:
           # uncomment the lines below to make the topology.kubernetes.io/zone annotation available as an environment variable and
           # use it as a cluster routing allocation attribute.
